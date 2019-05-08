@@ -1,0 +1,23 @@
+                        * experiment 1
+                        * name: Jamie Ping
+                        * 1/31/19
+                        
+00003000                 org $3000
+00003000 4281            clr.l d1
+00003002 4282            clr.l d2
+00003004 4283            clr.l d3
+00003006 4284            clr.l d4
+00003008 123c 0001       move.b #$01,d1
+0000300c 143c 0002       move.b #$02,d2
+00003010 163c 0003       move.b #$03,d3
+                        start
+00003014 d241            add d1,d1
+00003016 d442            add d2,d2
+00003018 d642            add d2,d3
+0000301a c7c1            muls d1,d3
+0000301c 83c2            divs d2,d1
+0000301e 9040            sub d0,d0
+00003020 67f2            beq start
+                         end start
+ =====     0 Error(s)
+ =====     0 Warning(s)
