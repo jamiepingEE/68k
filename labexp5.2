@@ -1,0 +1,57 @@
+PEPAR EQU  $FFFA16 ;e ports
+DDRE EQU  $FFFA14
+PEDR EQU  $FFFA10
+ 
+PFPAR EQU  $FFFA1E ;f ports
+DDRF EQU  $FFFA1C
+PFDR EQU  $FFFA18
+ 
+ 
+     ORG  $3000
+START
+     MOVE #$00F0,PEPAR
+     MOVE #$00FF,DDRE
+ 
+     MOVE #$0000,PFPAR
+     MOVE #$00FF,DDRF
+     
+     MOVE #$0004,PEDR
+     MOVE #$000F,PFDR
+     MOVE #$0000,PEDR
+     
+     BSR  DELAY
+     
+     MOVE #$05,D2 ;5 letters, then 5x
+     MOVE #BUF,A0 ;initialize pointer to each const char in array
+     
+     
+LOOP
+     
+ 
+     CLR D0
+     MOVE #$0005,PEDR ; 5x
+     
+     MOVE.b (A0)+,D0 ;load from pointer to d0
+     MOVE D0,PFDR ;send to F port to be printed
+     BSR  DELAY
+     MOVE #$0001,PEDR ;logic 1 print
+     
+     DBRA D2,LOOP ;keep printing and decrement D2, or branch if d2 is not 0 yet
+ 
+ 
+ 
+ 
+END  TRAP #15
+     DC   $63
+ 
+ 
+     
+     
+           ORG  $3500
+DELAY
+     MOVE.W     #$FFFF,D1
+LOOP1 DBRA D1,LOOP1
+     RTS
+     
+     
+BUF  DC.B 'J', 'A', 'M', 'I', 'E'
