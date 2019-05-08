@@ -1,0 +1,25 @@
+PFPAR EQU  $FFFA1E
+DDRF EQU  $FFFA1C
+PFDR EQU  $FFFA18
+ 
+ 
+     
+     ORG  $3000
+     MOVE #$0000,PFPAR
+     MOVE #$00FF,DDRF
+     
+LOOP MOVE #$00FF,PFDR ;flicker lights on and off and never stop
+     BSR  DELAY
+     MOVE #$0000,PFDR
+     BSR  DELAY
+     BRA  LOOP
+     
+     TRAP #15
+     DC   $63 
+     
+     
+     ORG  $4000
+DELAY MOVE.W     #$FFFF,D1 ;about 0.5 second delay for LCD driver to catch up to MCU
+     
+LOOP1 DBRA D1,LOOP1
+     RTS
