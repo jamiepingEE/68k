@@ -1,0 +1,12 @@
+  ORG $4000
+main
+  clr d1
+  clr d2
+  clr d3
+  move.w #$200A,d2
+  move.w  #$1000,d3
+  add d2,d1
+  add d3,d1
+  trap #15
+  dc.w $63
+  end main
