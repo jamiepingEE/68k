@@ -15,18 +15,10 @@ LOOP move VALS(a0),d2 ;10th byte vals=11
     cmp d0,d2
     beq THEN
     add d2,d3
-THEN adda d1,a0
-    bgt LOOP
-    movea d0,a0
+THEN adda d1,a0 ;highlight: adda does not clear status register
+    bgt LOOP ;triggers on add only and ignores adda instruction
+    movea d0,a0 ;move here if result of d3 is NOT greater than 0
     move d3,SUM(a0)
-    move EXIT(a0),d0
+    move EXIT(a0),d0 ;notice a0 is used as a pointer throughout to load arrays and constants
     trap #0
     end main
-    
-    
-
-
-*~Font name~Courier New~
-*~Font size~10~
-*~Tab type~1~
-*~Tab size~4~
