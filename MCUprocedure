@@ -1,0 +1,24 @@
+dosbox
+then type
+
+mount r U:\coen311
+r: then enter
+as32.exe -l lab2.asm > lab2.lst
+
+open axide
+select debug mode (d key)
+
+upload s-record file to AxIDE (use device and printers to check COM port)
+by typing LO then upload button
+
+then type enter, enter
+
+md 4000;di *displays memory
+
+ms address desiredContent *to change memory content
+
+rm d(number) hex           *then press . and enter to leave loop
+
+use go <address> (ex: go 4000) if TRAP #15 and DC $63 are used to halt program
+
+HEADER S1 THEN COUNT OF BYTES+1 THEN CHECKSUM(2 lsb)
